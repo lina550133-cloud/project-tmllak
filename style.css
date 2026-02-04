@@ -1,0 +1,145 @@
+/* الألوان والخطوط الأساسية */
+:root {
+    --bg-color: #f9f6f0;
+    --sidebar-color: #eee6d8;
+    --gold: #b2944a;
+    --borders: #d1c7b7;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    display: flex;
+    height: 100vh;
+}
+
+/* --- تنسيق القائمة الجانبية --- */
+.sidebar {
+    width: 220px;
+    background-color: var(--sidebar-color);
+    border-left: 1px solid var(--borders);
+    position: relative; /* لجعل الشعار يتحرك بحرية داخلها */
+}
+
+/* الشعار في أقصى الزاوية فوق */
+.logo-wrapper {
+    position: absolute;
+    top: 5px; /* رفعه لأقصى حد */
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.side-logo {
+    width: 135px; /* حجم الشعار */
+    height: auto;
+    mix-blend-mode: multiply; /* دمج خلفية الشعار مع القائمة */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    padding: 12px 25px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* تقليل المسافة بين الشعار وأول عنصر */
+.sidebar li.first-item {
+    margin-top: 95px; 
+}
+
+.sidebar li.active {
+    background-color: #e0d4c0;
+    font-weight: bold;
+    border-right: 4px solid var(--gold);
+}
+
+/* --- المحتوى الرئيسي --- */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.page-title {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.card-box {
+    background: var(--white);
+    padding: 25px;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.shadow {
+    border: 1px solid var(--borders);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.transparent {
+    background: transparent;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--borders);
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.main-btn {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 10px 45px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.styled-table th, .styled-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.eye-action {
+    color: var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.spacer {
+    height: 40px;
+}

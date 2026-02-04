@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تملّك - إدارة الرسائل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-wrapper">
+            <img src="logo.png.png" alt="تملك" class="side-logo">
+        </div>
+
+        <nav>
+            <ul>
+                <li class="first-item">الرئيسية</li>
+                <li>قائمة المهام</li>
+                <li>تفاصيل المهمة</li>
+                <li>الفريق</li>
+                <li class="active">الرسائل</li>
+                <li>المستندات</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h1 class="page-title">الرسائل</h1>
+
+        <div class="card-box shadow">
+            <div class="input-group">
+                <label>عنوان الرسالة:</label>
+                <input type="text" class="custom-input">
+            </div>
+            <div class="input-group">
+                <label>الموضوع:</label>
+                <textarea class="custom-input" rows="5"></textarea>
+            </div>
+            <button class="main-btn">إرسال</button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="card-box transparent">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>تاريخ الاستلام</th>
+                        <th>المرسل</th>
+                        <th>عرض</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024 / 02 / 14</td>
+                        <td>عالية</td>
+                        <td><i class="fa-regular fa-eye eye-action"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="main-btn">تم</button>
+        </div>
+    </main>
+
+</body>
+</html>
