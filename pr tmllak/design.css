@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+    width: 240px;
+    background-color: #fdfaf5;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #f0efeb;
+}
+
+.sidebar ul li {
+    padding: 12px 15px;
+    color: #666;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    margin-bottom: 5px;
+}
+
+/* تأثير الرمادي عند تمرير الماوس في القائمة */
+.sidebar ul li:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.sidebar ul li.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+/* الجداول */
+.cards-wrapper {
+    display: flex;
+    justify-content: space-between; /* يوزعهم واحد يمين وواحد يسار */
+    gap: 40px;
+    margin-bottom: 20px; /* تقليل المسافة تحت الجداول */
+}
+
+/* تأثير الرمادي العام للبطاقات */
+.hover-effect {
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.hover-effect:hover {
+    background-color: #f9f9f9; /* رمادي خفيف جداً */
+}
+
+.card {
+    border: 1.5px solid #f5e6cc;
+    padding: 25px;
+    flex: 1; 
+    max-width: 48%;
+    background: white;
+    min-height: 180px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f5e6cc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.badge {
+    background: #fdf2d9;
+    padding: 2px 12px;
+    border-radius: 15px;
+}
+
+.task-list {
+    list-style: disc;
+    padding-right: 25px;
+    line-height: 2;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    max-width: 48%;
+}
+
+.stat-row {
+    background: white;
+    border: 1px solid #f0efeb;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.stat-row:hover {
+    background-color: #f0f0f0;
+}
+
+.stat-row span {
+    color: #b8d8ba;
+    margin-left: 15px;
+    font-size: 22px;
+}
+
+/* منطقة الشعار والترحيب - مرفوعة للأعلى */
+.logo-area {
+    text-align: center;
+    margin-top: 10px; /* مسافة بسيطة جداً عن الجداول */
+}
+
+.main-logo {
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+}
+
+.welcome-msg {
+    margin-top: 5px; /* تقريب النص من الصورة */
+    color: #333;
+    font-size: 19px;
+    line-height: 1.5;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - الفريق</title>
+    <link rel="stylesheet" href="team.css">
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li onclick="showPage('home')" id="link-home">الرئيسية</li>
+                    <li onclick="showPage('team')" id="link-team" class="active">الفريق</li>
+                    <li>قائمة المهام</li>
+                    <li>تفاصيل المهمة</li>
+                    <li>الرسائل</li>
+                    <li>المستندات</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="user-info">
+                    <span class="bell">🔔</span>
+                    <span class="user-name">أحمد</span>
+                    <div class="avatar-small">أ</div>
+                </div>
+            </header>
+
+            <section id="home-page" class="page">
+                <div class="welcome-section">
+                    <h1>مرحباً أحمد</h1>
+                    <p>يمكنك إدارة فريقك من هنا بالكامل</p>
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="البحث...">
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">المشاريع العقارية</div>
+                    <div class="stat-card">العملاء</div>
+                    <div class="stat-card">الشراء</div>
+                </div>
+            </section>
+
+            <section id="team-page" class="page active">
+                <div class="page-header">
+                    <h1>الفريق</h1>
+                    <span class="subtitle">أعضاء الفريق</span>
+                </div>
+
+                <div class="team-grid">
+                    <div class="member-card">
+                        <div class="avatar" style="background-color: #d1d1d1;"></div>
+                        <h3>لينا العطار</h3>
+                        <p>tmllak123@gmail.com</p>
+                        <button class="view-btn">عرض الحساب</button>
+                    </div>
+                    <div class="member-card">
+                        <div class="avatar" style="background-color: #e57373;"></div>
+                        <h3>جود العنزي</h3>
+                        <p>tmllak123@gmail.com</p>
+                        <button class="view-btn">عرض الحساب</button>
+                    </div>
+                    <div class="member-card">
+                        <div class="avatar" style="background-color: #f06292;"></div>
+                        <h3>غلا الجبرين</h3>
+                        <p>tmllak123@gmail.com</p>
+                        <button class="view-btn">عرض الحساب</button>
+                    </div>
+                    <div class="member-card add-card">
+                        <div class="add-icon">+</div>
+                        <p>إضافة المزيد</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="team.js"></script>
+</body>
+</html>

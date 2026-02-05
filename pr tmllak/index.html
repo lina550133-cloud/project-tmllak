@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة تملك - لوحة التحكم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo-wrapper">
+                <img src="logo.png.png" alt="تملك" class="side-logo">
+            </div>
+            <nav>
+                <ul>
+                    <li onclick="showPage('home')" id="link-home" class="first-item active">الرئيسية</li>
+                    <li>السجلات</li>
+                    <li>المستندات</li>
+                    <li>قائمة المهام</li>
+                    <li onclick="showPage('team')" id="link-team">الفريق</li>
+                    <li onclick="showPage('messages')" id="link-messages">الرسائل</li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <input type="text" placeholder="🔍 مساحة العمل">
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <section id="home-page" class="page active">
+                <header>
+                    <h1 class="page-title">الرئيسية</h1>
+                </header>
+                <div class="cards-wrapper">
+                    <div class="stats-container hover-effect">
+                        <div class="stat-row"><span>•</span> المهام المتأخرة</div>
+                        <div class="stat-row"><span>•</span> الرسائل الجديدة</div>
+                        <div class="stat-row"><span>•</span> العقود</div>
+                    </div>
+                    <div class="card tasks-card hover-effect">
+                        <div class="card-header">
+                            <span class="badge">08</span>
+                            <h3>المهام</h3>
+                        </div>
+                        <ul class="task-list">
+                            <li>المهمة ١</li>
+                            <li>المهمة ٢</li>
+                            <li>المهمة ٣</li>
+                        </ul>
+                    </div>
+                </div>
+                <section class="logo-area">
+                    <div class="image-wrapper">
+                        <img src="logo.png.png" alt="Logo" class="main-logo">
+                    </div>
+                    <p class="welcome-msg">
+                        مرحباً بك في لوحة التحكم شركة تملك العمران العقارية، لننطلق اليوم <br>
+                        بشكل منتج ونتابع مهام عقاراتنا بسلاسة!
+                    </p>
+                </section>
+            </section>
+
+            <section id="team-page" class="page">
+                <h1 class="page-title">الفريق</h1>
+                <p class="subtitle">أعضاء الفريق الحاليين</p>
+                <div class="team-grid" id="teamContainer">
+                    <div class="member-card">
+                        <div class="circle-avatar" style="background:#d1c7b7"></div>
+                        <h3>لينا العطار</h3>
+                        <p>tmllak123@gmail.com</p>
+                        <button class="member-btn">عرض الحساب</button>
+                    </div>
+                    <div class="member-card">
+                        <div class="circle-avatar" style="background:#e5c9c9"></div>
+                        <h3>جود العنزي</h3>
+                        <p>joud@tmllak.com</p>
+                        <button class="member-btn">عرض الحساب</button>
+                    </div>
+                    <div class="member-card add-card" onclick="addNewMember()">
+                        <div class="plus-icon">+</div>
+                        <p>إضافة عضو جديد</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="messages-page" class="page">
+                <h1 class="page-title">الرسائل</h1>
+                <div class="card-box shadow">
+                    <div class="input-group">
+                        <label>عنوان الرسالة:</label>
+                        <input type="text" class="custom-input">
+                    </div>
+                    <div class="input-group">
+                        <label>الموضوع:</label>
+                        <textarea class="custom-input" rows="5"></textarea>
+                    </div>
+                    <button class="main-btn">إرسال</button>
+                </div>
+                <div class="spacer"></div>
+                <div class="card-box transparent">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>تاريخ الاستلام</th>
+                                <th>المرسل</th>
+                                <th>عرض</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024 / 02 / 14</td>
+                                <td>عالية</td>
+                                <td><i class="fa-regular fa-eye eye-action"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="main-btn">تم</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
