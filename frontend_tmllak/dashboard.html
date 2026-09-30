@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم - نظام إدارة العقارات</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f0f2f5; color: #333; }
+    .header {
+      background: #1e3a5f;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 { margin: 0; font-size: 1.25rem; }
+    .user { font-size: 0.9rem; opacity: 0.9; }
+    .logout { color: #fff; text-decoration: none; padding: 0.35rem 0.75rem; border: 1px solid rgba(255,255,255,0.5); border-radius: 6px; }
+    .logout:hover { background: rgba(255,255,255,0.1); }
+    .container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .card {
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .card .label { font-size: 0.85rem; color: #666; margin-bottom: 0.25rem; }
+    .card .value { font-size: 1.5rem; font-weight: 700; color: #1e3a5f; }
+    .section { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1.25rem; margin-bottom: 1.5rem; }
+    .section h2 { margin: 0 0 1rem 0; font-size: 1.1rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.6rem; text-align: right; border-bottom: 1px solid #eee; }
+    th { color: #666; font-weight: 500; font-size: 0.9rem; }
+    .error { background: #fee; color: #c00; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+    .btn { padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
+    .btn-primary { background: #1e3a5f; color: #fff; }
+    .btn-primary:hover { background: #2a4a7a; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .section-header h2 { margin: 0; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 100; }
+    .modal { background: #fff; padding: 1.5rem; border-radius: 10px; max-width: 420px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .modal h3 { margin: 0 0 1rem 0; font-size: 1.1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.35rem; color: #555; font-size: 0.9rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1.25rem; }
+    .modal-actions .btn { min-width: 90px; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>نظام إدارة العقارات – لوحة التحكم</h1>
+    <div>
+      <span class="user" id="userName">--</span>
+      <a href="#" class="logout" id="logoutBtn">تسجيل الخروج</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="error" class="error" style="display:none;"></div>
+    <div class="cards" id="statsCards"></div>
+    <div class="section">
+      <div class="section-header">
+        <h2>المهام</h2>
+        <button type="button" class="btn btn-primary" id="addTaskBtn">إضافة مهمة</button>
+      </div>
+      <div id="tasksTable"></div>
+    </div>
+    <div class="section">
+      <h2>العقود</h2>
+      <div id="contractsTable"></div>
+    </div>
+    <div class="section">
+      <h2>الفرق</h2>
+      <div id="teamsTable"></div>
+    </div>
+  </div>
+
+  <div id="taskModal" class="overlay" style="display: none;">
+    <div class="modal">
+      <h3>إضافة مهمة جديدة</h3>
+      <form id="taskForm">
+        <div class="form-group">
+          <label for="taskTitle">العنوان *</label>
+          <input type="text" id="taskTitle" required placeholder="عنوان المهمة">
+        </div>
+        <div class="form-group">
+          <label for="taskDesc">الوصف (اختياري)</label>
+          <textarea id="taskDesc" placeholder="وصف المهمة"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="taskPriority">الأولوية</label>
+          <select id="taskPriority">
+            <option value="low">منخفضة</option>
+            <option value="medium" selected>متوسطة</option>
+            <option value="high">عالية</option>
+            <option value="urgent">عاجلة</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="taskDueDate">تاريخ الاستحقاق (اختياري)</label>
+          <input type="date" id="taskDueDate">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="taskModalCancel">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/api.js"></script>
+  <script>
+    (function () {
+      const user = getUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('userName').textContent = user.full_name + ' (' + (user.role === 'user' ? 'موظف' : user.role === 'admin' ? 'مدير' : 'مشرف') + ')';
+      document.getElementById('logoutBtn').addEventListener('click', function (e) { e.preventDefault(); logout(); });
+
+      const errorEl = document.getElementById('error');
+      const statsEl = document.getElementById('statsCards');
+      const tasksEl = document.getElementById('tasksTable');
+      const contractsEl = document.getElementById('contractsTable');
+      const teamsEl = document.getElementById('teamsTable');
+
+      function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.style.display = 'block';
+      }
+
+      function renderStats(data) {
+        const entries = Object.entries(data);
+        if (entries.length === 0) return;
+        statsEl.innerHTML = entries.map(([key, val]) => {
+          const label = key.replace(/_/g, ' ');
+          return '<div class="card"><div class="label">' + label + '</div><div class="value">' + val + '</div></div>';
+        }).join('');
+      }
+
+      function renderTable(arr, cols) {
+        if (!arr || arr.length === 0) return '<p style="color:#666">لا توجد بيانات</p>';
+        const headers = cols.map(c => '<th>' + c.label + '</th>').join('');
+        const rows = arr.map(row => '<tr>' + cols.map(c => '<td>' + (row[c.key] ?? '') + '</td>').join('') + '</tr>').join('');
+        return '<table><thead><tr>' + headers + '</tr></thead><tbody>' + rows + '</tbody></table>';
+      }
+
+      async function load() {
+        try {
+          const [dashboard, tasksRes, contractsRes, teamsRes] = await Promise.all([
+            fetchDashboard(),
+            fetchTasks(),
+            fetchContracts(),
+            fetchTeams(),
+          ]);
+          renderStats(dashboard);
+          tasksEl.innerHTML = renderTable(tasksRes.tasks || [], [
+            { key: 'id', label: '#' },
+            { key: 'title', label: 'العنوان' },
+            { key: 'status', label: 'الحالة' },
+            { key: 'priority', label: 'الأولوية' },
+          ]);
+          contractsEl.innerHTML = renderTable(contractsRes.contracts || [], [
+            { key: 'id', label: '#' },
+            { key: 'title', label: 'العنوان' },
+            { key: 'status', label: 'الحالة' },
+            { key: 'created_at', label: 'التاريخ' },
+          ]);
+          teamsEl.innerHTML = renderTable(teamsRes.teams || [], [
+            { key: 'id', label: '#' },
+            { key: 'name', label: 'اسم الفريق' },
+          ]);
+        } catch (err) {
+          showError(err.message || 'فشل تحميل البيانات');
+        }
+      }
+
+      const taskModal = document.getElementById('taskModal');
+      const taskForm = document.getElementById('taskForm');
+      document.getElementById('addTaskBtn').addEventListener('click', function () {
+        taskForm.reset();
+        document.getElementById('taskPriority').value = 'medium';
+        taskModal.style.display = 'flex';
+      });
+      document.getElementById('taskModalCancel').addEventListener('click', function () {
+        taskModal.style.display = 'none';
+      });
+      taskForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const title = document.getElementById('taskTitle').value.trim();
+        if (!title) return;
+        const data = {
+          title: title,
+          description: document.getElementById('taskDesc').value.trim() || null,
+          priority: document.getElementById('taskPriority').value,
+          status: 'pending',
+        };
+        const due = document.getElementById('taskDueDate').value;
+        if (due) data.due_date = due + 'T12:00:00';
+        try {
+          await createTask(data);
+          taskModal.style.display = 'none';
+          load();
+        } catch (err) {
+          showError(err.message || 'فشل إنشاء المهمة');
+        }
+      });
+
+      load();
+    })();
+  </script>
+</body>
+</html>

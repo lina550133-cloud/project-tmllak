@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - نظام إدارة العقارات</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+      color: #333;
+      padding: 2rem;
+    }
+    /* تنسيق ويب: البطاقة بعرض ثابت ومناسب لسطح المكتب */
+    .card {
+      background: #fff;
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 420px;
+      min-width: 320px;
+    }
+    @media (min-width: 768px) {
+      .card { padding: 3rem 3.5rem; max-width: 440px; }
+      .logo { font-size: 1.75rem; }
+      h1 { font-size: 1.35rem; }
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: #1e3a5f; margin-bottom: 0.25rem; }
+    .sub { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem 0; }
+    .hint { color: #666; font-size: 0.9rem; margin-bottom: 1.25rem; }
+    label { display: block; margin-bottom: 0.35rem; font-weight: 500; }
+    input {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    input:focus { outline: none; border-color: #1e3a5f; }
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #1e3a5f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .btn:hover { background: #2a4a6f; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .error {
+      background: #fee;
+      color: #c00;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .error.show { display: block; }
+    .divider { text-align: center; color: #999; margin: 1rem 0; font-size: 0.9rem; }
+    .link { text-align: center; }
+    .link a { color: #1e3a5f; text-decoration: none; }
+    .link a:hover { text-decoration: underline; }
+    .test-accounts {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .test-accounts strong { display: block; margin-bottom: 0.5rem; }
+    .test-accounts div { margin: 0.25rem 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">نظام العقارات</div>
+    <div class="sub">Real Estate Management</div>
+    <h1>مرحبا بعودتك</h1>
+    <p class="hint">سجل دخولك للمتابعة</p>
+
+    <div id="error" class="error"></div>
+
+    <form id="loginForm" method="post" action="javascript:void(0)">
+      <label for="email">البريد الإلكتروني</label>
+      <input type="email" id="email" name="email" placeholder="example@email.com" required autocomplete="email">
+
+      <label for="password">كلمة المرور</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+
+      <button type="submit" class="btn" id="btnSubmit">تسجيل الدخول</button>
+    </form>
+
+    <div class="divider">أو</div>
+    <p class="link">ليس لديك حساب؟ <a href="#">إنشاء حساب جديد</a></p>
+
+    <div class="test-accounts">
+      <strong>حسابات تجريبية</strong>
+      <div>admin@realestate.sa – مدير (Admin@12345)</div>
+      <div>supervisor1@realestate.sa – مشرف (Sup@12345)</div>
+      <div>emp1@realestate.sa – موظف (Emp@12345)</div>
+    </div>
+  </div>
+
+  <script src="/static/api.js"></script>
+  <script>
+    (function () {
+      const user = getUser();
+      if (user) {
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      const form = document.getElementById('loginForm');
+      const errorEl = document.getElementById('error');
+      const btn = document.getElementById('btnSubmit');
+
+      function showError(msg) {
+        errorEl.textContent = msg || 'حدث خطأ. تحقق من البريد وكلمة المرور.';
+        errorEl.classList.add('show');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorEl.classList.remove('show');
+        btn.disabled = true;
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        try {
+          await login(email, password);
+          window.location.href = 'dashboard.html';
+        } catch (err) {
+          showError(err.message || 'فشل تسجيل الدخول');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
